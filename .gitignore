@@ -55,6 +55,12 @@ cover/
 *.mo
 *.pot
 
+# MLflow
+mlruns/
+mlartifacts/
+mlflow.db
+
+
 # Data
 data/
 
