@@ -1,4 +1,5 @@
 """Hyperparameter tuning with Optuna."""
+
 import optuna
 import pandas as pd
 import numpy as np
@@ -19,15 +20,14 @@ def objective(trial, X_train, y_train):
         "gamma": trial.suggest_float("gamma", 0, 5),
         "random_state": 42,
         "eval_metric": "logloss",
-        "use_label_encoder": False
+        "use_label_encoder": False,
     }
 
     pipeline = build_pipeline(model_params=params)
 
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     scores = cross_val_score(
-        pipeline, X_train, y_train,
-        cv=cv, scoring='roc_auc', n_jobs=-1
+        pipeline, X_train, y_train, cv=cv, scoring="roc_auc", n_jobs=-1
     )
     return scores.mean()
 
@@ -35,8 +35,8 @@ def objective(trial, X_train, y_train):
 def run_tuning(n_trials: int = 50):
     # Load RAW data — pipeline does all preprocessing internally
     raw = pd.read_csv("data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv")
-    X = raw.drop(columns=['Churn'])
-    y = raw['Churn'].map({'Yes': 1, 'No': 0})
+    X = raw.drop(columns=["Churn"])
+    y = raw["Churn"].map({"Yes": 1, "No": 0})
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
@@ -51,14 +51,14 @@ def run_tuning(n_trials: int = 50):
     study = optuna.create_study(
         direction="maximize",
         study_name="churn-xgb-tuning",
-        sampler=optuna.samplers.TPESampler(seed=42)
+        sampler=optuna.samplers.TPESampler(seed=42),
     )
 
     print(f"Starting Optuna tuning — {n_trials} trials...")
     study.optimize(
         lambda trial: objective(trial, X_train, y_train),
         n_trials=n_trials,
-        show_progress_bar=True
+        show_progress_bar=True,
     )
 
     best_params = study.best_params

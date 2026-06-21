@@ -1,10 +1,15 @@
 """Model evaluation and explainability utilities."""
+
 import numpy as np
 import pandas as pd
 import shap
 from sklearn.metrics import (
-    roc_auc_score, f1_score, precision_score, recall_score,
-    accuracy_score, confusion_matrix
+    roc_auc_score,
+    f1_score,
+    precision_score,
+    recall_score,
+    accuracy_score,
+    confusion_matrix,
 )
 
 
@@ -42,6 +47,7 @@ def get_shap_values(model, X_sample):
 
 if __name__ == "__main__":
     import joblib
+
     model = joblib.load("models/churn_model.pkl")
     X_test = pd.read_csv("data/processed/X_test.csv")
     y_test = pd.read_csv("data/processed/y_test.csv").squeeze()

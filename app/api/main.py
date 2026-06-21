@@ -1,4 +1,5 @@
 """FastAPI inference service for churn prediction."""
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
@@ -30,7 +31,7 @@ app = FastAPI(
     title="Customer Churn Prediction API",
     description="Predicts customer churn probability from account and service data.",
     version="1.0.0",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -74,7 +75,7 @@ def predict_churn(customer: CustomerInput):
             churn_probability=round(float(proba), 4),
             churn_prediction=prediction,
             risk_threshold_used=RISK_THRESHOLD,
-            top_risk_factors=top_factors
+            top_risk_factors=top_factors,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

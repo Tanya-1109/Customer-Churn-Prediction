@@ -1,9 +1,16 @@
 """Training script for churn prediction models."""
+
 import pandas as pd
 import mlflow
 import mlflow.xgboost
 import xgboost as xgb
-from sklearn.metrics import roc_auc_score, f1_score, precision_score, recall_score, accuracy_score
+from sklearn.metrics import (
+    roc_auc_score,
+    f1_score,
+    precision_score,
+    recall_score,
+    accuracy_score,
+)
 import yaml
 import joblib
 import os
@@ -22,7 +29,7 @@ def evaluate_model(model, X_test, y_test):
         "precision": precision_score(y_test, y_pred),
         "recall": recall_score(y_test, y_pred),
         "f1": f1_score(y_test, y_pred),
-        "roc_auc": roc_auc_score(y_test, y_proba)
+        "roc_auc": roc_auc_score(y_test, y_proba),
     }
 
 
@@ -33,7 +40,9 @@ def train(config_path="config.yaml"):
     y_train = pd.read_csv("data/processed/y_train.csv").squeeze()
     X_test = pd.read_csv("data/processed/X_test.csv")
     y_test = pd.read_csv("data/processed/y_test.csv").squeeze()
-    mlflow.set_tracking_uri("sqlite:///D:/Customer Churn Prediction/Customer-Churn-Prediction/notebooks/mlflow.db")
+    mlflow.set_tracking_uri(
+        "sqlite:///D:/Customer Churn Prediction/Customer-Churn-Prediction/notebooks/mlflow.db"
+    )
     mlflow.set_experiment("churn-prediction")
 
     with mlflow.start_run(run_name="xgboost_production"):

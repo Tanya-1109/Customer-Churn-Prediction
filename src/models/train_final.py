@@ -1,4 +1,5 @@
 """Train final production model using best hyperparameters from tuning."""
+
 import pandas as pd
 import mlflow
 import mlflow.sklearn
@@ -16,10 +17,11 @@ def train_final(tune: bool = False, config_path: str = "config.yaml"):
 
     # Load RAW data, split fresh — pipeline handles all preprocessing
     raw = pd.read_csv("data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv")
-    X = raw.drop(columns=['Churn'])
-    y = raw['Churn'].map({'Yes': 1, 'No': 0})
+    X = raw.drop(columns=["Churn"])
+    y = raw["Churn"].map({"Yes": 1, "No": 0})
 
     from sklearn.model_selection import train_test_split
+
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
     )
@@ -64,4 +66,4 @@ def train_final(tune: bool = False, config_path: str = "config.yaml"):
 
 
 if __name__ == "__main__":
-    train_final(tune=False)   # set tune=True to run Optuna first
+    train_final(tune=False)  # set tune=True to run Optuna first
