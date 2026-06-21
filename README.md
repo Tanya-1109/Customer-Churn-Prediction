@@ -6,7 +6,7 @@
 
 An end-to-end machine learning system that predicts customer churn for a telecom company, complete with explainable AI, a REST API, and an interactive demo app.
 
-**🎯 [Try the live demo](your-streamlit-cloud-link-here)** | **📓 [View EDA notebook](notebooks/01_eda.ipynb)**
+**🎯 [Try the live demo](https://customer-churn-prediction-using-shap.streamlit.app/)** | **📓 [View EDA notebook](notebooks/01_eda.ipynb)**
 
 ![Demo GIF](reports\dashboards\Streamlit_dashboard.gif)
 
