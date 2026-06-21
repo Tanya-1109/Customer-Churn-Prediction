@@ -1,16 +1,23 @@
 """Interactive Streamlit demo for churn prediction."""
 
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
+
 import streamlit as st
 import pandas as pd
 import joblib
 import plotly.graph_objects as go
+from src.models.pipeline import ChurnFeatureEngineer
 
 st.set_page_config(page_title="Churn Prediction Demo", page_icon="📊", layout="wide")
 
 
 @st.cache_resource
 def load_pipeline():
-    return joblib.load("models/churn_pipeline.pkl")
+    return joblib.load(PROJECT_ROOT / "models" / "churn_pipeline.pkl")
 
 
 pipeline = load_pipeline()
