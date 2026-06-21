@@ -8,7 +8,7 @@ An end-to-end machine learning system that predicts customer churn for a telecom
 
 **🎯 [Try the live demo](https://customer-churn-prediction-using-shap.streamlit.app/)** | **📓 [View EDA notebook](notebooks/01_eda.ipynb)**
 
-![Demo GIF](reports\dashboards\Streamlit_dashboard.gif)
+![Demo GIF](reports/dashboards/Streamlit_dashboard.gif)
 
 ---
 
