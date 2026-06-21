@@ -24,6 +24,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run unit tests
+        # ── The explicit path patch ──
+        env:
+          PYTHONPATH: .
         run: |
           pytest tests/ -v --tb=short
 
